@@ -1,18 +1,15 @@
 import { Parser } from 'expr-eval';
-import { Rule } from './types';
+import { ruleMap, helperMap } from './index';
 
-/**
- * Generic rule evaluator for any product type, with optional helpers
- */
-export function evaluateRules(
-  product: any,
-  rules: Rule[],
-  helpers?: Record<string, Function>
-): { [key: string]: number } {
+export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: string]: number } {
+  const rules = ruleMap[key];
+  const helpers = helperMap[key] || {};
+  if (!rules) {
+    throw new Error(`No rules defined for key: ${key}`);
+  }
+
   const parser = new Parser();
-  const context: any = { ...product };
-  // Add helpers if provided
-  if (helpers) Object.assign(context, helpers);
+  const context: any = { ...facts, ...helpers };
 
   for (const rule of rules) {
     const { name, expression } = rule.event.params;
@@ -25,7 +22,7 @@ export function evaluateRules(
       );
     }
   }
-  // Return all named results
+
   const results: { [key: string]: number } = {};
   for (const rule of rules) {
     results[rule.event.params.name] = context[rule.event.params.name];

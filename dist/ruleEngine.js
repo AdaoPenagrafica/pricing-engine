@@ -1,13 +1,13 @@
 import { Parser } from 'expr-eval';
-/**
- * Generic rule evaluator for any product type, with optional helpers
- */
-export function evaluateRules(product, rules, helpers) {
+import { ruleMap, helperMap } from './index';
+export function evaluateRules(facts, key) {
+    const rules = ruleMap[key];
+    const helpers = helperMap[key] || {};
+    if (!rules) {
+        throw new Error(`No rules defined for key: ${key}`);
+    }
     const parser = new Parser();
-    const context = { ...product };
-    // Add helpers if provided
-    if (helpers)
-        Object.assign(context, helpers);
+    const context = { ...facts, ...helpers };
     for (const rule of rules) {
         const { name, expression } = rule.event.params;
         try {
@@ -18,7 +18,6 @@ export function evaluateRules(product, rules, helpers) {
             throw new Error(`Failed to evaluate "${name}" with formula "${expression}".\nAvailable variables: ${Object.keys(context).join(', ')}\nError: ${e.message}`);
         }
     }
-    // Return all named results
     const results = {};
     for (const rule of rules) {
         results[rule.event.params.name] = context[rule.event.params.name];
