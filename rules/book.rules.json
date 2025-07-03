@@ -1,0 +1,46 @@
+[
+  {
+    "_note": "Define Black/ White Pages",
+    "conditions": { "all": [] },
+    "event": {
+      "type": "set-variable",
+      "params": {
+        "name": "pagespbCost",
+        "expression": "if(pagespb.value > 0, (pagespb.value / size * paper), 0) + (pagespb.value / (size / 2) * pagespb.price_adjustment)"
+      }
+    }
+  },
+  {
+    "_note": "Define Color Pages",
+    "conditions": { "all": [] },
+    "event": {
+      "type": "set-variable",
+      "params": {
+        "name": "pagescCost",
+        "expression": "if(pagesc.value > 0, (pagesc.value / size * paper), 0) + (pagesc.value / (size / 2) * pagesc.price_adjustment)"
+      }
+    }
+  },
+  {
+    "_note": "Calculate the base cost using the full pricing formula.",
+    "conditions": { "all": [] },
+    "event": {
+      "type": "set-variable",
+      "params": {
+        "name": "base",
+        "expression": "pagespbCost + pagescCost + cover + 0.15 + (lamination*0.33*0.48) + (20 / quantity) + finish"
+      }
+    }
+  },
+  {
+    "_note": "Add the profit margin to the base cost",
+    "conditions": { "all": [] },
+    "event": {
+      "type": "set-variable",
+      "params": {
+        "name": "finishCost",
+        "expression": "base*profit"
+      }
+    }
+  }
+]

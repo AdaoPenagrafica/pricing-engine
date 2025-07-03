@@ -1,0 +1,46 @@
+[
+    {
+        "_note": "Calculate printing price",
+        "conditions": { "all": [] },
+        "event": {
+            "type": "set-variable",
+            "params": {
+                "name": "printPrice",
+                "expression": "sheets * 0.02 * quantity"
+            }
+        }
+    },
+    {
+        "_note": "Determine final print cost with lookup+lerp if needed",
+        "conditions": { "all": [] },
+        "event": {
+            "type": "set-variable",
+            "params": {
+                "name": "finalPrintCost",
+                "expression": "if(printPrice <= 24, printPrice, specialPrice(quantity))"
+            }
+        }
+    },
+    {
+        "_note": "Calculate the base cost using the full pricing formula.",
+        "conditions": { "all": [] },
+        "event": {
+            "type": "set-variable",
+            "params": {
+                "name": "base",
+                "expression": "finalPrintCost + ( sheets * size * quantity) + finish"
+            }
+        }
+    },
+    {
+        "_note": "Add the profit margin to the base cost.",
+        "conditions": { "all": [] },
+        "event": {
+            "type": "set-variable",
+            "params": {
+                "name": "finishCost",
+                "expression": "base*profit"
+            }
+        }
+    }
+]
