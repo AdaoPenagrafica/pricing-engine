@@ -27,9 +27,8 @@ export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: st
     }
   }
 
-  const results: { [key: string]: number } = {};
-  for (const rule of rules) {
-    results[rule.event.params.name] = context[rule.event.params.name];
-  }
-  return results;
+  return {
+    finishCost: context['finishCost'],
+    quantity: context['quantity']
+  };
 }
