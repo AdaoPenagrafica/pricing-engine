@@ -10,7 +10,7 @@ export interface Rule {
         };
     };
 }
-export type RuleType = "" | "book" | "autoc";
+export type RuleType = "book" | "autoc";
 export interface Pages {
     value: number;
     price_adjustment: number;
