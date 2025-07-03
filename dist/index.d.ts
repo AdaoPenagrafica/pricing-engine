@@ -1,6 +1,4 @@
 export { evaluateRules } from './ruleEngine';
-export { default as bookRules } from '../rules/book.rules.json';
-export { default as autocRules } from '../rules/autoc.rules.json';
 import { specialPrice } from './helpers/autoc.helper';
 export declare const ruleMap: {
     book: {
@@ -36,4 +34,7 @@ export declare const helperMap: {
         specialPrice: typeof specialPrice;
     };
 };
+export { default as bookRules } from '../rules/book.rules.json';
+export { default as autocRules } from '../rules/autoc.rules.json';
+export * from './types';
 //# sourceMappingURL=index.d.ts.map
