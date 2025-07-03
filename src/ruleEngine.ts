@@ -12,6 +12,10 @@ export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: st
   const context: any = { ...facts, ...helpers };
 
   for (const rule of rules) {
+    if (!rule?.event?.params) {
+      console.warn('Skipping invalid rule:', rule);
+      continue;
+    }
     const { name, expression } = rule.event.params;
     try {
       const value = parser.evaluate(expression, context);
