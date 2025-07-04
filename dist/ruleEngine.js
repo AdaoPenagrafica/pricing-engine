@@ -25,7 +25,7 @@ export function evaluateRules(facts, key) {
     }
     return {
         Unitario: context['finishCost'],
-        Quantity: context['quantity'],
+        Quantidade: context['quantity'],
         Total: context['finishCost'] * context['quantity']
     };
 }
