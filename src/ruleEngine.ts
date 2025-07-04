@@ -29,7 +29,7 @@ export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: st
 
   return {
     Unitario: context['finishCost'],
-    Quantity: context['quantity'],
+    Quantidade: context['quantity'],
     Total: context['finishCost'] * context['quantity']
   };
 }
