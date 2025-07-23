@@ -16,7 +16,7 @@
         "event": {
             "type": "set-variable",
             "params": {
-                "name": "sheets",
+                "name": "size",
                 "expression": "specialSize(quantity, size)"
             }
         }

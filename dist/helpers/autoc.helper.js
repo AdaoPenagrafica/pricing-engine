@@ -45,3 +45,13 @@ export function specialSheets(q, baseSheets) {
         s -= 5;
     return s;
 }
+export function specialSize(q, baseSize) {
+    let s = baseSize;
+    if (q >= 3)
+        s -= 0.5;
+    if (q >= 20)
+        s -= 0.2;
+    if (q >= 50)
+        s -= 0.2;
+    return s;
+}
