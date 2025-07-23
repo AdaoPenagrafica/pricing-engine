@@ -32,3 +32,13 @@ export function specialPrice(quantity: number): number {
 
   return table[table.length - 1].p;
 }
+
+export function specialSheets(q:number, baseSheets:number): number {
+  let s = baseSheets;
+  if (q >= 20) s -= 5;
+  if (q >= 30) s -= 5;
+  if (q >= 50) s -= 5;
+  if (q >= 100) s -= 5;
+  if (q >= 200) s -= 5;
+  return s;
+}

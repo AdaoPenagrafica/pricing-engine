@@ -1,5 +1,5 @@
 export { evaluateRules } from './ruleEngine';
-import { specialPrice } from './helpers/autoc.helper';
+import { specialPrice, specialSheets } from './helpers/autoc.helper';
 export declare const ruleMap: {
     book: {
         _note: string;
@@ -32,6 +32,7 @@ export declare const helperMap: {
     book: {};
     autoc: {
         specialPrice: typeof specialPrice;
+        specialSheets: typeof specialSheets;
     };
 };
 export { default as bookRules } from '../rules/book.rules.json';

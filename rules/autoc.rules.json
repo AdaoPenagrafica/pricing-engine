@@ -1,5 +1,16 @@
 [
     {
+        "_note": "Change sheets and size by the quantity",
+        "conditions": { "all": [] },
+        "event": {
+            "type": "set-variable",
+            "params": {
+                "name": "sheets",
+                "expression": "specialSheets(quantity, sheets)"
+            }
+        }
+    },
+    {
         "_note": "Calculate printing price",
         "conditions": { "all": [] },
         "event": {
