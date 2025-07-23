@@ -2,7 +2,7 @@ export { evaluateRules } from './ruleEngine';
 
 import bookRules from '../rules/book.rules.json';
 import autocRules from '../rules/autoc.rules.json';
-import { specialPrice, specialSheets } from './helpers/autoc.helper';
+import { specialPrice, specialSheets, specialSize } from './helpers/autoc.helper';
 
 export const ruleMap = {
   book: bookRules,
@@ -11,7 +11,7 @@ export const ruleMap = {
 
 export const helperMap = {
   book: {},
-  autoc: { specialPrice, specialSheets },
+  autoc: { specialPrice, specialSheets, specialSize },
 };
 
 export { default as bookRules } from '../rules/book.rules.json';
