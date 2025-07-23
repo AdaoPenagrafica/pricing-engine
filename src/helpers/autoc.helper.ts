@@ -45,8 +45,8 @@ export function specialSheets(q:number, baseSheets:number): number {
 
 export function specialSize(q:number, baseSize:number):number {
   let s = baseSize;
-  if (q >=  3) s -= 0.5;
-  if (q >= 20) s -= 0.2;
-  if (q >= 50) s -= 0.2;
+  if (q >=  3) s -= 0.05;
+  if (q >= 20) s -= 0.02;
+  if (q >= 50) s -= 0.02;
   return s;
 }

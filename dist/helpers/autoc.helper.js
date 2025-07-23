@@ -48,10 +48,10 @@ export function specialSheets(q, baseSheets) {
 export function specialSize(q, baseSize) {
     let s = baseSize;
     if (q >= 3)
-        s -= 0.5;
+        s -= 0.05;
     if (q >= 20)
-        s -= 0.2;
+        s -= 0.02;
     if (q >= 50)
-        s -= 0.2;
+        s -= 0.02;
     return s;
 }
