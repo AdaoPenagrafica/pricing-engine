@@ -1,0 +1,24 @@
+[
+    {
+        "_note": "Calculate the base cost using the full pricing formula.",
+        "conditions": { "all": [] },
+        "event": {
+        "type": "set-variable",
+        "params": {
+            "name": "base",
+            "expression": "flap + window + print"
+        }
+        }
+    },
+    {
+        "_note": "Add the profit margin to the base cost",
+        "conditions": { "all": [] },
+        "event": {
+        "type": "set-variable",
+        "params": {
+            "name": "finishCost",
+            "expression": "base*profit"
+        }
+        }
+    }
+]
