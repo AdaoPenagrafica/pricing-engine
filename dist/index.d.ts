@@ -27,6 +27,19 @@ export declare const ruleMap: {
             };
         };
     }[];
+    envlp: {
+        _note: string;
+        conditions: {
+            all: never[];
+        };
+        event: {
+            type: string;
+            params: {
+                name: string;
+                expression: string;
+            };
+        };
+    }[];
 };
 export declare const helperMap: {
     book: {};
@@ -35,8 +48,10 @@ export declare const helperMap: {
         specialSheets: typeof specialSheets;
         specialSize: typeof specialSize;
     };
+    envlp: {};
 };
 export { default as bookRules } from '../rules/book.rules.json';
 export { default as autocRules } from '../rules/autoc.rules.json';
+export { default as envlpRules } from '../rules/envlp.rules.json';
 export * from './types';
 //# sourceMappingURL=index.d.ts.map

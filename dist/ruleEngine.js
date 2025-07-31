@@ -24,7 +24,7 @@ export function evaluateRules(facts, key) {
         }
     }
     return {
-        Tudo: context,
+        All: context,
         Unitario: context['finishCost'],
         Quantidade: context['quantity'],
         Total: context['finishCost'] * context['quantity']

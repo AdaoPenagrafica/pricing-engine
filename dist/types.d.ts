@@ -10,7 +10,7 @@ export interface Rule {
         };
     };
 }
-export type RuleType = "book" | "autoc";
+export type RuleType = "book" | "autoc" | "envlp";
 export interface Pages {
     value: number;
     price_adjustment: number;
@@ -30,6 +30,14 @@ export interface AutoC {
     quantity: number;
     size: number;
     sheets: number;
+    print: number;
+    finish: number;
+    profit: number;
+}
+export interface Envlp {
+    quantity: number;
+    flap: number;
+    window: number;
     print: number;
     finish: number;
     profit: number;
