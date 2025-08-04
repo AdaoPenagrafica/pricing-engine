@@ -1,11 +1,29 @@
 import { Parser } from 'expr-eval';
 import { ruleMap, helperMap } from './index';
+import dotenv from 'dotenv';
+import { decrypt } from './helpers/decrypt';
+
+dotenv.config();
+const decryptKey:string = process.env.AES_KEY!;
 
 export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: string]: number } {
   const rules = ruleMap[key];
   const helpers = helperMap[key] || {};
   if (!rules) {
     throw new Error(`No rules defined for key: ${key}`);
+  }
+
+  const decryptedFacts: Record<string, any> = {};
+  for (const [key, value] of Object.entries(facts)) {
+    try {
+      if (typeof value === 'string' && value.startsWith('U2FsdGVk')) {
+        decryptedFacts[key] = decrypt(value, decryptKey);
+      } else {
+        decryptedFacts[key] = value;
+      }
+    } catch (e) {
+      decryptedFacts[key] = value;
+    }
   }
 
   const parser = new Parser();
