@@ -1,11 +1,8 @@
 import { Parser } from 'expr-eval';
 import { ruleMap, helperMap } from './index';
-import dotenv from 'dotenv';
 import { decrypt } from './helpers/decrypt';
-dotenv.config();
-const decryptKey = process.env.AES_KEY;
-export function evaluateRules(facts, key) {
-    var _a;
+export function evaluateRules(facts, key, options = {}) {
+    var _a, _b;
     const rules = ruleMap[key];
     const helpers = helperMap[key] || {};
     if (!rules) {
@@ -14,8 +11,8 @@ export function evaluateRules(facts, key) {
     const decryptedFacts = {};
     for (const [key, value] of Object.entries(facts)) {
         try {
-            if (typeof value === 'string' && value.startsWith('U2FsdGVk')) {
-                decryptedFacts[key] = decrypt(value, decryptKey);
+            if (options && typeof value === 'string' && value.startsWith('U2FsdGVk')) {
+                decryptedFacts[key] = decrypt(value, (_a = options.decryptKey) !== null && _a !== void 0 ? _a : '');
             }
             else {
                 decryptedFacts[key] = value;
@@ -26,9 +23,9 @@ export function evaluateRules(facts, key) {
         }
     }
     const parser = new Parser();
-    const context = { ...facts, ...helpers };
+    const context = { ...decryptedFacts, ...helpers };
     for (const rule of rules) {
-        if (!((_a = rule === null || rule === void 0 ? void 0 : rule.event) === null || _a === void 0 ? void 0 : _a.params)) {
+        if (!((_b = rule === null || rule === void 0 ? void 0 : rule.event) === null || _b === void 0 ? void 0 : _b.params)) {
             console.warn('Skipping invalid rule:', rule);
             continue;
         }

@@ -1,12 +1,10 @@
 import { Parser } from 'expr-eval';
 import { ruleMap, helperMap } from './index';
-import dotenv from 'dotenv';
 import { decrypt } from './helpers/decrypt';
 
-dotenv.config();
-const decryptKey:string = process.env.AES_KEY!;
+interface EvaluateOptions { decryptKey?: string; }
 
-export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: string]: number } {
+export function evaluateRules(facts: any, key: keyof typeof ruleMap, options: EvaluateOptions = {}): { [key: string]: number } {
   const rules = ruleMap[key];
   const helpers = helperMap[key] || {};
   if (!rules) {
@@ -16,8 +14,8 @@ export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: st
   const decryptedFacts: Record<string, any> = {};
   for (const [key, value] of Object.entries(facts)) {
     try {
-      if (typeof value === 'string' && value.startsWith('U2FsdGVk')) {
-        decryptedFacts[key] = decrypt(value, decryptKey);
+      if (options && typeof value === 'string' && value.startsWith('U2FsdGVk')) {
+        decryptedFacts[key] = decrypt(value, options.decryptKey ?? '');
       } else {
         decryptedFacts[key] = value;
       }
@@ -27,7 +25,7 @@ export function evaluateRules(facts: any, key: keyof typeof ruleMap): { [key: st
   }
 
   const parser = new Parser();
-  const context: any = { ...facts, ...helpers };
+  const context: any = { ...decryptedFacts, ...helpers };
 
   for (const rule of rules) {
     if (!rule?.event?.params) {
